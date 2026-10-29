@@ -18,11 +18,9 @@ async function main() {
     const notes: string[] = [];
 
     for (const file of files) {
-        console.log("writing note for", file.path, "...");
         const { diff } = getFileDiff({ path: file.path, oldPath: file.oldPath });
         const note = await chat({ model, system: NOTE_PROMPT, prompt: diff });
         notes.push(`${file.path}: ${note}`);
-        console.log("  ->", note);
     }
 
     const raw = await chat({ model, system: COMMIT_PROMPT, prompt: notes.join("\n") });
@@ -36,4 +34,7 @@ async function main() {
     else console.log("Cancelled. Your changes are still staged.");
 }
 
-main().catch(console.error);
+ main().catch((error: Error) => {
+    console.error(error.message);
+    process.exit(1);
+  });
