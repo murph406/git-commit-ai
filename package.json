@@ -1,22 +1,23 @@
 {
   "name": "git-ai-commit",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "npx tsx index.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
-  "devDependencies": {
-    "@types/node": "^26.6.5",
-    "typescript": "^7.0.2"
+  "license": "ISC",
+  "scripts": {
+    "start": "tsx index.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"No tests yet\" && exit 0"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.81",
     "ai": "^7.0.157",
     "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   }
 }
