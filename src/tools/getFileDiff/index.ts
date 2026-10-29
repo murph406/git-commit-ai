@@ -1,15 +1,19 @@
-import { z } from "zod";
-import { tool } from "ai";
-import execute from './execute'
+import { execFileSync } from "node:child_process";
 
-const description = "Get the staged diff for one file. Use a path returned by list_staged_files."
-const inputSchema = z.object({
-    path: z.string().describe("File path relative to the repo root")
-})
+const MAX_CHARS = 20_000;
 
-export default tool({
-    description,
-    inputSchema,
-    execute
-})
+const getFileDiff = ({ path, oldPath }: { path: string; oldPath?: string }) => {
+  const paths = oldPath ? [oldPath, path] : [path];
+  const diff = execFileSync("git", ["diff", "--staged", "--", ...paths], {
+    encoding: "utf8",
+    maxBuffer: 50 * 1024 * 1024,
+  });
 
+  if (diff.length > MAX_CHARS) {
+    return { path, diff: diff.slice(0, MAX_CHARS), truncated: true };
+  }
+
+  return { path, diff, truncated: false };
+};
+
+export default getFileDiff;
