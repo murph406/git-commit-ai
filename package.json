@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "test": "npx tsx index.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,10 @@
   "devDependencies": {
     "@types/node": "^26.6.5",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@ai-sdk/openai-compatible": "^3.0.81",
+    "ai": "^7.0.157",
+    "zod": "^4.6.7"
   }
 }
