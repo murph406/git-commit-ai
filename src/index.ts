@@ -1,10 +1,8 @@
-import { getFileDiff, listStagedFiles } from './src/tools'
-import { COMMIT_PROMPT, NOTE_PROMPT } from './src/prompts'
-import { getApiKey } from './src/llm/apiKey'
-import { createModel } from './src/llm/model'
-import { commit } from './src/git/commit'
-import { chat } from './src/llm/chat'
-import { ask } from './src/cli'
+import { ask } from './cli'
+import { commit } from './git'
+import { chat, createModel, getApiKey } from './llm'
+import { COMMIT_PROMPT, NOTE_PROMPT } from './prompts'
+import { getFileDiff, listStagedFiles } from './tools'
 
 async function main() {
     const files = listStagedFiles()
