@@ -1,12 +1,12 @@
 import { generateText, type LanguageModel } from 'ai'
 
-export type ChatPropTypes = {
+export type ChatTypes = {
     model: LanguageModel,
     system: string,
     prompt: string,
 }
 
-export async function chat({ model, system, prompt }: ChatPropTypes): Promise<string> {
+export async function chat({ model, system, prompt }: ChatTypes): Promise<string> {
     const { text } = await generateText({
         model,
         system,

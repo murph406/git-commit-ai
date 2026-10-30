@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process'
 
-export const MAX_CHARS = Number(process.env.DIFF_CHARACTER_LIMIT || 10_0000)
+export const MAX_CHARS = Number(process.env.DIFF_CHARACTER_LIMIT || 100000)
 
 const getFileDiff = ({ path, oldPath }: { path: string; oldPath?: string }) => {
   const paths = oldPath ? [oldPath, path] : [path]
