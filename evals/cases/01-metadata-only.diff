@@ -1,0 +1,34 @@
+diff --git a/index.yaml b/index.yaml
+index ac13515..e801248 100644
+--- a/index.yaml
++++ b/index.yaml
+@@ -66,6 +66,9 @@ Resources:
+   FrontendS3Bucket:
+     Type: AWS::S3::Bucket
+     DependsOn: FrontendS3BucketLogsPolicy
++    Metadata:
++      com.aws.cloudformation.Context:
++        why: store the built frontend files per stage; private, with access logs and versioning for recovery
+     Properties:
+       Tags:
+         - Key: Project
+@@ -91,6 +94,9 @@ Resources:
+ 
+   LambdaEdgeRole:
+     Type: 'AWS::IAM::Role'
++    Metadata:
++      com.aws.cloudformation.Context:
++        why: 'Lambda@Edge needs edgelambda.amazonaws.com to assume this role for CloudFront edge replication.'
+     Properties:
+       Tags:
+         - Key: Project
+@@ -112,6 +118,9 @@ Resources:
+ 
+   CloudfrontOriginRequestPolicy:
+     Type: AWS::CloudFront::OriginRequestPolicy
++    Metadata:
++      com.aws.cloudformation.Context:
++        why: 'Forwards all query strings to the origin but no cookies or headers, keeping origin requests minimal.'
+     Properties:
+       OriginRequestPolicyConfig:
+         Name: !Sub 'originPolicyConfiguration${Stage}'

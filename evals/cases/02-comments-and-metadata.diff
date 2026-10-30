@@ -1,0 +1,48 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..6937180
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1 @@
++.vscode/settings.json
+\ No newline at end of file
+diff --git a/.vscode/settings.json b/.vscode/settings.json
+deleted file mode 100644
+index 6aac56b..0000000
+--- a/.vscode/settings.json
++++ /dev/null
+@@ -1,5 +0,0 @@
+-{
+-    "yaml.schemas": {
+-        "https://www.schemastore.org/yamllint.json": "file:///Users/ryanmurphy/Desktop/projects/eddy/infra/index.yaml"
+-    }
+-}
+\ No newline at end of file
+diff --git a/index.yaml b/index.yaml
+index 3b1f7fa..ac13515 100644
+--- a/index.yaml
++++ b/index.yaml
+@@ -19,6 +19,9 @@ Parameters:
+ Resources:
+   FrontendS3BucketLogs:
+     Type: AWS::S3::Bucket
++    Metadata:
++      com.aws.cloudformation.Context:
++        why: store access logs for the frontend S3 bucket, kept 90 days for troubleshooting
+     Properties:
+       Tags:
+         - Key: Project
+diff --git a/scripts/parameter-overrides/print.sh b/scripts/parameter-overrides/print.sh
+index f5cf6a1..a046dc0 100644
+--- a/scripts/parameter-overrides/print.sh
++++ b/scripts/parameter-overrides/print.sh
+@@ -1,7 +1,7 @@
+ override_file=$(cat ./scripts/parameter-overrides/.overrides)
+-set -f # turn off globbing
++set -f 
+ IFS='
+-' # split at newlines only
++' 
+ 
+ overrides_split=($(cat ./scripts/parameter-overrides/.overrides))
+ 

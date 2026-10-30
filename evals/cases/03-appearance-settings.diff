@@ -1,0 +1,399 @@
+diff --git a/ios/Eddy.xcodeproj/project.pbxproj b/ios/Eddy.xcodeproj/project.pbxproj
+index 238ffcb..a59f167 100644
+--- a/ios/Eddy.xcodeproj/project.pbxproj
++++ b/ios/Eddy.xcodeproj/project.pbxproj
+@@ -17,6 +17,9 @@
+ 		4476D881306F1CBB0067094D /* CardPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476D880306F1CBB0067094D /* CardPickerView.swift */; };
+ 		4476D883306F1E5E0067094D /* CardPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476D882306F1E5E0067094D /* CardPickerManager.swift */; };
+ 		4476D885306F1EA00067094D /* CardPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4476D884306F1EA00067094D /* CardPickerManager.m */; };
++		4476D889307181190067094D /* SFSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476D888307181190067094D /* SFSymbolView.swift */; };
++		4476D88B307181B20067094D /* SFSymbolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476D88A307181B20067094D /* SFSymbolManager.swift */; };
++		4476D88D307181CE0067094D /* SFSymbolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4476D88C307181CE0067094D /* SFSymbolManager.m */; };
+ 		44B460A9303A3E7C008EFA2B /* SheetPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 44B460A7303A3E7C008EFA2B /* SheetPresenter.m */; };
+ 		44B460AA303A3E7C008EFA2B /* SheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B460A8303A3E7C008EFA2B /* SheetPresenter.swift */; };
+ 		44B460AF303A4A94008EFA2B /* GlassButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B460AE303A4A94008EFA2B /* GlassButtonView.swift */; };
+@@ -42,6 +45,9 @@
+ 		4476D880306F1CBB0067094D /* CardPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPickerView.swift; sourceTree = "<group>"; };
+ 		4476D882306F1E5E0067094D /* CardPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPickerManager.swift; sourceTree = "<group>"; };
+ 		4476D884306F1EA00067094D /* CardPickerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardPickerManager.m; sourceTree = "<group>"; };
++		4476D888307181190067094D /* SFSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolView.swift; sourceTree = "<group>"; };
++		4476D88A307181B20067094D /* SFSymbolManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolManager.swift; sourceTree = "<group>"; };
++		4476D88C307181CE0067094D /* SFSymbolManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFSymbolManager.m; sourceTree = "<group>"; };
+ 		44B460A6303A3E7C008EFA2B /* Eddy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Eddy-Bridging-Header.h"; path = "Eddy/Eddy-Bridging-Header.h"; sourceTree = "<group>"; };
+ 		44B460A7303A3E7C008EFA2B /* SheetPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SheetPresenter.m; path = ../Eddy/NativeModules/SheetPresenter/SheetPresenter.m; sourceTree = "<group>"; };
+ 		44B460A8303A3E7C008EFA2B /* SheetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SheetPresenter.swift; path = ../Eddy/NativeModules/SheetPresenter/SheetPresenter.swift; sourceTree = "<group>"; };
+@@ -81,6 +87,7 @@
+ 		13B07FAE1A68108700A75B9A /* Eddy */ = {
+ 			isa = PBXGroup;
+ 			children = (
++				4476D8873071810A0067094D /* SFSymbolView */,
+ 				4476D87D306F1AC00067094D /* CardPicker */,
+ 				4476D875306DEC540067094D /* GlassSurface */,
+ 				BB2F792B24A3F905000567C9 /* Supporting */,
+@@ -126,6 +133,16 @@
+ 			path = CardPicker;
+ 			sourceTree = "<group>";
+ 		};
++		4476D8873071810A0067094D /* SFSymbolView */ = {
++			isa = PBXGroup;
++			children = (
++				4476D888307181190067094D /* SFSymbolView.swift */,
++				4476D88A307181B20067094D /* SFSymbolManager.swift */,
++				4476D88C307181CE0067094D /* SFSymbolManager.m */,
++			);
++			path = SFSymbolView;
++			sourceTree = "<group>";
++		};
+ 		44B460AB303A48B7008EFA2B /* SheetPresenter */ = {
+ 			isa = PBXGroup;
+ 			children = (
+@@ -437,13 +454,16 @@
+ 				44B460B0303A4A94008EFA2B /* GlassButtonManager.m in Sources */,
+ 				44B460B1303A4A94008EFA2B /* GlassButtonManager.swift in Sources */,
+ 				4476D87F306F1ADD0067094D /* CardPicker.swift in Sources */,
++				4476D88D307181CE0067094D /* SFSymbolManager.m in Sources */,
+ 				44B460AA303A3E7C008EFA2B /* SheetPresenter.swift in Sources */,
+ 				4476D883306F1E5E0067094D /* CardPickerManager.swift in Sources */,
+ 				4476D876306DEC540067094D /* GlassSurfaceManager.swift in Sources */,
++				4476D88B307181B20067094D /* SFSymbolManager.swift in Sources */,
+ 				4476D877306DEC540067094D /* GlassSurfaceManager.m in Sources */,
+ 				4476D881306F1CBB0067094D /* CardPickerView.swift in Sources */,
+ 				4476D878306DEC540067094D /* GlassSurfaceView.swift in Sources */,
+ 				4476D885306F1EA00067094D /* CardPickerManager.m in Sources */,
++				4476D889307181190067094D /* SFSymbolView.swift in Sources */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
+diff --git a/ios/SFSymbolView/SFSymbolManager.m b/ios/SFSymbolView/SFSymbolManager.m
+new file mode 100644
+index 0000000..13a0ecc
+--- /dev/null
++++ b/ios/SFSymbolView/SFSymbolManager.m
+@@ -0,0 +1,8 @@
++#import <React/RCTViewManager.h>
++
++@interface RCT_EXTERN_MODULE(SFSymbolManager, RCTViewManager)
++RCT_EXPORT_VIEW_PROPERTY(name, NSString)
++RCT_EXPORT_VIEW_PROPERTY(size, CGFloat)
++RCT_EXPORT_VIEW_PROPERTY(weight, NSString)
++RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
++@end
+diff --git a/ios/SFSymbolView/SFSymbolManager.swift b/ios/SFSymbolView/SFSymbolManager.swift
+new file mode 100644
+index 0000000..e04e523
+--- /dev/null
++++ b/ios/SFSymbolView/SFSymbolManager.swift
+@@ -0,0 +1,7 @@
++import React
++
++@objc(SFSymbolManager)
++class SFSymbolManager: RCTViewManager {
++  override func view() -> UIView! { SFSymbolView() }
++  override static func requiresMainQueueSetup() -> Bool { true }
++}
+diff --git a/ios/SFSymbolView/SFSymbolView.swift b/ios/SFSymbolView/SFSymbolView.swift
+new file mode 100644
+index 0000000..b7663a1
+--- /dev/null
++++ b/ios/SFSymbolView/SFSymbolView.swift
+@@ -0,0 +1,44 @@
++import UIKit
++
++@objc(SFSymbolView)
++class SFSymbolView: UIView {
++  private let imageView = UIImageView()
++  
++  @objc var name: NSString = "" { didSet { updateImage() } }
++  @objc var size: CGFloat = 17 { didSet { updateImage() } }
++  @objc var weight: NSString = "regular" { didSet { updateImage() } }
++  @objc var color: UIColor? {
++    didSet { imageView.tintColor = color ?? .label }
++  }
++  
++  override init(frame: CGRect) {
++    super.init(frame: frame)
++    clipsToBounds = false
++    imageView.contentMode = .center
++    imageView.tintColor = .label
++    imageView.frame = bounds
++    imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
++    addSubview(imageView)
++  }
++  
++  required init?(coder: NSCoder) { fatalError("init(coder:) not supported") }
++  
++  private func updateImage() {
++    let config = UIImage.SymbolConfiguration(pointSize: size, weight: symbolWeight)
++    imageView.image = UIImage(systemName: name as String, withConfiguration: config)
++  }
++
++  private var symbolWeight: UIImage.SymbolWeight {
++    switch weight as String {
++    case "ultraLight": return .ultraLight
++    case "thin": return .thin
++    case "light": return .light
++    case "medium": return .medium
++    case "semibold": return .semibold
++    case "bold": return .bold
++    case "heavy": return .heavy
++    case "black": return .black
++    default: return .regular
++    }
++  }
++}
+diff --git a/src/components/composites/ListRow/index.tsx b/src/components/composites/ListRow/index.tsx
+new file mode 100644
+index 0000000..e9ed350
+--- /dev/null
++++ b/src/components/composites/ListRow/index.tsx
+@@ -0,0 +1,52 @@
++import Text from '@/components/elements/Text'
++import SFSymbol from '@components/elements/SFSymbol'
++import useStyles from '@hooks/useStyles'
++import { ThemeContextType } from '@stores/ThemeContext'
++import { StyleSheet, TouchableOpacity, View } from 'react-native'
++
++type ListRowProps = {
++    label?: string
++    icon?: string
++    onPress?: () => void | null
++    children?: React.ReactNode | null
++}
++
++export default function ListRow({ icon, label = 'List Row', onPress, children }: ListRowProps) {
++    const s = useStyles(createStyles)
++
++    return (
++        <TouchableOpacity disabled={onPress == null} style={s.container} onPress={onPress}>
++            <View style={s.textRow}>
++                {icon && <SFSymbol name={icon} />}
++                <Text >{label}</Text>
++            </View>
++
++            {children || <SFSymbol name='chevron.forward' />}
++        </TouchableOpacity>
++    )
++}
++
++const createStyles = (theme: ThemeContextType) => {
++    const { vars } = theme
++    const { unit } = vars
++
++    const styles = {
++        ...StyleSheet.create({
++            container: {
++                flexDirection: 'row',
++                gap: vars.unit,
++                justifyContent: 'space-between',
++                alignItems: 'center',
++                height: unit * 2,
++            },
++            textRow: {
++                flexDirection: 'row',
++                gap: vars.unit,
++                alignItems: 'center'
++            }
++        }),
++    }
++
++    return styles
++}
++
+diff --git a/src/components/elements/SFSymbol/index.tsx b/src/components/elements/SFSymbol/index.tsx
+new file mode 100644
+index 0000000..bc68e38
+--- /dev/null
++++ b/src/components/elements/SFSymbol/index.tsx
+@@ -0,0 +1,34 @@
++import { requireNativeComponent, ViewProps } from 'react-native'
++
++export type SymbolWeight = | 'ultraLight' | 'thin' | 'light' | 'regular' | 'medium' | 'semibold' | 'bold' | 'heavy' | 'black'
++
++type NativeSFSymbolProps = Omit<ViewProps, 'ref'> & {
++    name: string
++    size?: number
++    weight?: SymbolWeight
++    color?: string
++}
++
++const NativeSFSymbol = requireNativeComponent<NativeSFSymbolProps>('SFSymbol')
++type SFSymbolProps = NativeSFSymbolProps
++
++export default function SFSymbol({
++    name,
++    size = 17,
++    weight = 'regular',
++    color,
++    style,
++    ...rest
++}: SFSymbolProps) {
++    return (
++        <NativeSFSymbol
++            {...rest}
++            name={name}
++            size={size}
++            weight={weight}
++            color={color}
++            pointerEvents="none"
++            style={[{ width: size, height: size }, style]}
++        />
++    )
++}
+\ No newline at end of file
+diff --git a/src/router/index.tsx b/src/router/index.tsx
+index 9c311a6..af4a643 100644
+--- a/src/router/index.tsx
++++ b/src/router/index.tsx
+@@ -29,7 +29,7 @@ function AppStack() {
+         component={SettingsScreen}
+         options={{
+           presentation: 'formSheet',
+-          sheetAllowedDetents: [0.285, .6666],
++          sheetAllowedDetents: [0.285, .825],
+           sheetGrabberVisible: false,
+           sheetCornerRadius: 50,
+           sheetInitialDetentIndex: 0,
+diff --git a/src/screens/Settings/index.tsx b/src/screens/Settings/index.tsx
+index 6a2c4f3..12fd4af 100644
+--- a/src/screens/Settings/index.tsx
++++ b/src/screens/Settings/index.tsx
+@@ -3,14 +3,14 @@ import { StatusBar } from 'expo-status-bar'
+ import React from 'react'
+ import { StyleSheet, View } from 'react-native'
+ 
++import ListRow from '@/components/composites/ListRow'
++import Switch from '@/components/elements/Switch'
+ import CardPicker, { CardPickerOption } from '@components/composites/CardPicker'
+ import Divider from '@components/elements/Divider'
+ import Section from '@components/elements/Section'
+-import Switch from '@components/elements/Switch'
+-import Text from '@components/elements/Text'
+ import useStyles from '@hooks/useStyles'
+ import { useMapContext } from '@stores/MapContext'
+-import { ThemeContextType, useThemeContext } from '@stores/ThemeContext'
++import { AppearanceMode, ThemeContextType, useThemeContext } from '@stores/ThemeContext'
+ import { useUserContext } from '@stores/UserContext'
+ import { MapMode } from '@utils/Types'
+ 
+@@ -20,10 +20,16 @@ const MAP_STYLE_OPTIONS: CardPickerOption<MapMode>[] = [
+   { id: 'satellite', title: 'Satellite', imageName: 'map-satellite' },
+ ]
+ 
++const APPEARANCE_STYLE_OPTIONS: CardPickerOption<AppearanceMode>[] = [
++  { id: 'light', title: 'Light', systemImageName: 'sun.max.fill' },
++  { id: 'system', title: 'System', systemImageName: 'circle.lefthalf.filled' },
++  { id: 'dark', title: 'Dark', systemImageName: 'moon.fill' },
++]
++
+ export default function SettingsScreen() {
+   const navigation = useNavigation()
+   const s = useStyles(createStyles)
+-  const { scheme } = useThemeContext()
++  const { scheme, customScheme, setCustomScheme } = useThemeContext()
+   const { mapMode, setMapMode } = useMapContext()
+ 
+   const {
+@@ -74,25 +80,32 @@ export default function SettingsScreen() {
+ 
+       <Section label='Account'>
+         <View style={s.wrapper}>
++          <ListRow label='Profile' icon='person' />
++
++          <Divider />
++
++          <ListRow label='Push Notifications' icon='bell' />
+ 
+-          <View style={s.row}>
+-            <Text >Location Services</Text>
++          <Divider />
+ 
++          <ListRow label='Location Services' icon='location'>
+             <Switch
+               value={locationsSwitchValue}
+               onValueChange={validateLocationsPermissions}
+             />
+-          </View>
+-
+-          <Divider />
+-
+-          <View style={s.row}>
+-            <Text>Push Notifications</Text>
+-            <Switch />
+-          </View>
++          </ListRow>
+         </View>
++      </Section>
+ 
++      <Section label='Appearance'>
++          <CardPicker
++            options={APPEARANCE_STYLE_OPTIONS}
++            selectedId={customScheme}
++            onSelect={setCustomScheme}
++          />
+       </Section>
++
++
+     </View>
+   )
+ }
+diff --git a/src/stores/ThemeContext/ThemeContext.tsx b/src/stores/ThemeContext/ThemeContext.tsx
+index c71ee76..d6bd91f 100644
+--- a/src/stores/ThemeContext/ThemeContext.tsx
++++ b/src/stores/ThemeContext/ThemeContext.tsx
+@@ -2,7 +2,9 @@ import React from 'react'
+ 
+ import { Vars } from '@/utils/Vars'
+ import { Colors } from '@utils/Colors'
+-import { useColorScheme } from 'react-native'
++import { Appearance, useColorScheme } from 'react-native'
++
++export type AppearanceMode = 'system' | 'dark' | 'light'
+ 
+ export type ThemeContextType = {
+   colors: typeof Colors['dark'] & {
+@@ -11,14 +13,22 @@ export type ThemeContextType = {
+   },
+   scheme: 'light' | 'dark'
+   vars: typeof Vars,
+-  hslToHex: (hsl: string) => string
++  hslToHex: (hsl: string) => string,
++  customScheme: AppearanceMode
++  setCustomScheme: React.Dispatch<React.SetStateAction<AppearanceMode>>
+ }
+ 
+ const ThemeContext = React.createContext<ThemeContextType | null>(null)
+ 
+ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+   const colorScheme = useColorScheme()
+-  const scheme = colorScheme === 'dark' ? 'dark' : 'light'
++  const systemScheme = colorScheme === 'dark' ? 'dark' : 'light'
++
++  const [customScheme, setCustomScheme] = React.useState<AppearanceMode>('system')
++
++  const scheme = React.useMemo(() => {
++    return customScheme == 'system' ? systemScheme : customScheme
++  }, [customScheme, systemScheme])
+ 
+   const colors = React.useMemo(() => {
+     return {
+@@ -28,6 +38,11 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+     }
+   }, [colorScheme, scheme])
+ 
++  React.useEffect(() => {
++    Appearance.setColorScheme(customScheme === 'system' ? 'unspecified' : customScheme)
++  }, [customScheme])
++
++
+   function hslToHex(hsl: string = '') {
+     const [h = 0, s = 0, l = 0] = hsl.match(/\d+\.?\d*/g)!.map(Number)
+     const sl = s / 100
+@@ -48,6 +63,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+     scheme,
+     hslToHex,
+     vars: Vars,
++    customScheme,
++    setCustomScheme,
+   }
+ 
+   return (
