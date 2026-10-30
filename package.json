@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "start": "tsx index.ts",
-    "build": "tsc",
+    "start": "tsx src/index.ts",
+    "build": "esbuild src/index.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/index.js",
     "typecheck": "tsc --noEmit",
     "test": "echo \"No tests yet\" && exit 0",
     "lint:fix": "eslint . --fix",
@@ -20,6 +20,7 @@
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^26.6.5",
+    "esbuild": "^0.28.2",
     "eslint": "^10.13.0",
     "eslint-plugin-import-x": "^4.17.1",
     "globals": "^17.13.0",
