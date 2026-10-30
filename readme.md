@@ -50,24 +50,12 @@ The model runs on [Ollama](https://ollama.com) behind an authenticating proxy ([
    exec node "$HOME/path/to/git-ai-commit/dist/index.js" "$@"
    ```
 
-4. Optional: set an editor for `e`, for example VS Code:
-
-   ```sh
-   git config --global core.editor "code --wait"
-   ```
-
 ## Usage
 
 ```sh
 git add <files>
 git ai-commit
 ```
-
-## Configuration
-
-| Variable | Default | Purpose |
-|---|---|---|
-| `AI_COMMIT_MODEL` | `qwen2.5-coder:14b` | Model for the notes and the final message |
 
 ## Message format
 
@@ -100,19 +88,18 @@ npm run typecheck    # check types
 npm run lint         # lint (npm run lint:fix to fix)
 ```
 
-## Evaluation
+## Configuration
 
-Prompt and model changes are checked against a small set of saved diffs, each with a reference message (`.diff` and `.expected` files). A runner script prints every result next to its reference so changes can be compared on the same inputs instead of judged from single runs.
+Settings are read from a `.env` file in the project root. Copy `.env.example` to `.env` and fill it in:
 
-## What I learned
+```sh
+cp .env.example .env
+```
 
-- Check the input before blaming the model: a stray staged file looked like a hallucination.
-- Ollama's default context window is small (4,096 tokens), and long requests are trimmed silently. The OpenAI-compatible endpoint ignores `num_ctx`, so diffs are capped in code to fit.
-- More prompt rules stopped helping at some point. Splitting the task into smaller calls fixed what rules could not.
-- Rules that code can check (trailing period, one line) belong in code, not only in the prompt.
-- Evals turn "it looked better" into evidence.
-- Pick the design to fit the model. As an agent, the 14B model wrote tool calls as plain text instead of real tool calls. As a fixed workflow with small, focused calls, it works well.
+| Variable | Default | Purpose |
+|---|---|---|
+| `BASE_API_URL` | none (required) | Proxy URL for Ollama's OpenAI-compatible endpoint, e.g. `https://your-host/v1` |
+| `AI_MODEL` | none (required) | Model for the notes and the final message |
+| `DIFF_CHARACTER_LIMIT` | `12000` | Maximum characters of each file's diff sent to the model |
 
-## Legacy
-
-`legacy/git-ai-commit.sh` is the original single-call bash version.
+The `.env` file is loaded with Node's `--env-file` flag (in `npm start` and in the `~/bin` script), so changes apply on the next run without rebuilding. Variables set in your shell override the file.

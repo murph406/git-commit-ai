@@ -1,15 +1,17 @@
-
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible'
 
-const BASE_URL = 'https://macmini.tailec0045.ts.net/v1'
-const MODEL = 'qwen2.5-coder:14b'
+const BASE_API_URL = process.env.BASE_API_URL
+const AI_MODEL = process.env.AI_MODEL
 
 export function createModel(apiKey: string) {
+    if (!BASE_API_URL) throw new Error('BASE_API_URL is not set. Add it to .env')
+    if (!AI_MODEL) throw new Error('AI_MODEL is not set. Add it to .env')
+
     const ollama = createOpenAICompatible({
         name: 'ollama',
-        baseURL: BASE_URL,
+        baseURL: BASE_API_URL,
         headers: { 'x-api-key': apiKey },
     })
 
-    return ollama(MODEL)
+    return ollama(AI_MODEL)
 }

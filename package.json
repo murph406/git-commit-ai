@@ -4,10 +4,10 @@
   "type": "module",
   "license": "ISC",
   "scripts": {
-    "start": "tsx src/index.ts",
+    "start": "tsx --env-file=.env src/index.ts",
     "build": "esbuild src/index.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/index.js",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"No tests yet\" && exit 0",
+    "eval": "echo \"No evals yet\" && exit 0",
     "lint:fix": "eslint . --fix",
     "lint": "eslint ."
   },
