@@ -103,3 +103,47 @@ cp .env.example .env
 | `DIFF_CHARACTER_LIMIT` | `12000` | Maximum characters of each file's diff sent to the model |
 
 The `.env` file is loaded with Node's `--env-file` flag (in `npm start` and in the `~/bin` script), so changes apply on the next run without rebuilding. Variables set in your shell override the file.
+
+
+## Adding an eval case
+
+When a commit produces a bad message in real use, save it as a regression case.
+
+1. **Find the commit**
+
+   ```bash
+   git log --oneline -n 20
+   ```
+
+2. **Pick a name** following the `NN-short-description` pattern (e.g. `02-lockfile-heavy`).
+
+3. **Save the diff**
+
+   ```bash
+   git show <sha> --format= --no-color > evals/cases/<name>.diff
+   ```
+
+4. **Write the expected message** — the commit message the model *should* have produced:
+
+   ```bash
+   echo "Migrate evals to Braintrust" > evals/cases/<name>.expected
+   ```
+
+5. **Check the diff**
+
+   ```bash
+   head -5 evals/cases/<name>.diff   # should start with "diff --git"
+   ```
+
+6. **Run the evals** and confirm the new case fails the way it did in real use
+
+   ```bash
+   npm run eval
+   ```
+
+7. **Commit the case**
+
+   ```bash
+   git add evals/cases/<name>.*
+   git commit -m "Add eval case <name>"
+   ```

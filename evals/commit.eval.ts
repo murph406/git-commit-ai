@@ -1,14 +1,15 @@
-import { readdirSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { Eval } from 'braintrust'
 import { createModel, FileDiff, generateMessage, getApiKey } from '../src/llm'
 import { MAX_CHARS } from '@/tools/getFileDiff'
+import length from './scorers/length'
+import { Meta, Output } from './scorers/types'
+import imperative from './scorers/imperative'
+import capitalized from './scorers/capitalized'
+import noPeriod from './scorers/noPeriod'
 
 const DIR = 'evals/cases'
 const model = createModel(getApiKey())
-
-type Output = { message: string; notes: string[] }
-
-const rule = (name: string, pass: (message: string) => boolean) => ({ output }: { output: Output }) => ({ name, score: pass(output.message) ? 1 : 0 })
 
 function splitDiff(diff: string): FileDiff[] {
   return diff
@@ -26,20 +27,34 @@ function splitDiff(diff: string): FileDiff[] {
     })
 }
 
-Eval('git-ai-commit', {
-  data: () => readdirSync(DIR)
-    .filter((file) => file.endsWith('.diff'))
-    .map((file) => ({
-      input: readFileSync(`${DIR}/${file}`, 'utf8'),
-      expected: readFileSync(`${DIR}/${file.replace(/\.diff$/, '.expected')}`, 'utf8').trim(),
-      metadata: { name: file },
-    })),
-  task: (diff: string) => generateMessage(model, splitDiff(diff)),
+Eval('git-commit-ai', {
+  experimentName: process.env.EXP,
+  data: () =>
+    readdirSync(DIR)
+      .filter((file) => file.endsWith('.diff'))
+      .map((file) => {
+        const name = file.replace(/\.diff$/, '')
+        const [number, ...rest] = name.split('-')
+        const label = rest.join('-')
+        const input = readFileSync(`${DIR}/${file}`, 'utf8')
+        const expectedPath = `${DIR}/${name}.expected`
+
+        return {
+          input,
+          expected: existsSync(expectedPath) ? readFileSync(expectedPath, 'utf8').trim() : undefined,
+          metadata: { name, number, label, fileCount: splitDiff(input).length } satisfies Meta,
+          tags: [label],
+        }
+      }),
+  task: async (diff: string): Promise<Output> => {
+    const result = await generateMessage(model, splitDiff(diff))
+    return { ...result, message: result.message.trim() }
+  },
   scores: [
-    rule('length', (m) => m.length <= 72),
-    rule('capitalized', (m) => /^[A-Z]/.test(m)),
-    rule('noPeriod', (m) => !m.endsWith('.')),
-    rule('imperative', (m) => !/(ed|ing)$/.test(m.split(' ')[0])),
+    length,
+    imperative, 
+    capitalized, 
+    noPeriod
   ],
   maxConcurrency: 1,
 })
