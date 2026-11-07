@@ -7,7 +7,7 @@
     "start": "tsx --env-file=.env src/index.ts",
     "build": "esbuild src/index.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/index.js",
     "typecheck": "tsc --noEmit",
-    "eval": "tsx --env-file=.env evals/run.ts",
+    "eval": "npx braintrust eval --env-file .env evals/commit.eval.ts",
     "lint:fix": "eslint . --fix",
     "lint": "eslint ."
   },
@@ -20,6 +20,7 @@
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^26.6.5",
+    "braintrust": "^3.43.0",
     "esbuild": "^0.28.2",
     "eslint": "^10.13.0",
     "eslint-plugin-import-x": "^4.17.1",
